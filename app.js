@@ -9,7 +9,6 @@ server.listen(process.env.PORT ?? 3000, () => {
 });
 
 // like njtro sniper..
-require('dotenv').config();
 const { Client } = require('discord.js-selfbot-v13');
 
 const TOKEN = process.env.TOKEN;
