@@ -14,7 +14,7 @@ const { Client } = require('discord.js-selfbot-v13');
 const TOKEN = process.env.TOKEN;
 
 // 🎯 Channels to scan for invites
-const SCAN_CHANNEL_IDS = ['1358537025124569352', '1358537064538312935', '1119967762559815722']; // Replace with real channel IDs
+const SCAN_CHANNEL_IDS = ['1358537025124569352', '1358537064538312935', '1119967762559815722', '1372081858724237312', '1372081913203916860']; // Replace with real channel IDs
 
 // 📤 Log channel where invite links will be sent
 const LOG_CHANNEL_ID = '1119967762559815722'; // Replace with real channel ID
