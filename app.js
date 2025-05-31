@@ -40,7 +40,7 @@ client.on('messageCreate', async (message) => {
     const inviteLink = match[0];
     const logChannel = await client.channels.fetch(LOG_CHANNEL_ID);
     if (logChannel) {
-      logChannel.send(`🔗 Invite link detected \\@everyone\nin <#${message.channel.id}>\nby <@${message.author.id}>\n\n# ${inviteLink}`);
+      logChannel.send(`🔗 Invite link detected @everyone\nin <#${message.channel.id}>\nby <@${message.author.id}>\n\n# ${inviteLink}`);
     } else {
       console.log("❌ Couldn't find log channel.");
     }
