@@ -12,7 +12,7 @@ const { Client } = require('discord.js-selfbot-v13');
 const client = new Client();
 
 // === Configuration ===
-const TOKEN = process.env.TOKEN;
+const TOKEN = process.env.TOKEN5;
 const CHANNEL_ID = '1119967762559815722';
 
 // === Invite Link Pattern ===
