@@ -16,7 +16,7 @@ const TOKEN = process.env.TOKEN;
 const CHANNEL_ID = 'YOUR_TARGET_CHANNEL_ID';
 
 // === Invite Link Pattern ===
-const INVITE_REGEX = /discord(?:\.gg|\.com\/invite\/)([a-zA-Z0-9\-]+)/gi;
+const INVITE_REGEX = /(https?:\/\/)?(www\.)?(discord\.gg|discord\.com\/invite)\/[a-zA-Z0-9]+/;
 
 // === Event Listener ===
 client.on('messageCreate', async (msg) => {
