@@ -13,7 +13,7 @@ const client = new Client();
 
 // === Configuration ===
 const TOKEN = process.env.TOKEN;
-const CHANNEL_ID = 'YOUR_TARGET_CHANNEL_ID';
+const CHANNEL_ID = '1119967762559815722';
 
 // === Invite Link Pattern ===
 const INVITE_REGEX = /(https?:\/\/)?(www\.)?(discord\.gg|discord\.com\/invite)\/[a-zA-Z0-9]+/;
@@ -24,7 +24,7 @@ client.on('messageCreate', async (msg) => {
    if (!msg.content) return;
 
    const matches = [...msg.content.matchAll(INVITE_REGEX)];
-   const codes = matches.map(m => m[1]);
+   const codes = matches.map(m => m[4]);
 
    for (const code of codes) {
       try {
