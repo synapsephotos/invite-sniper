@@ -8,45 +8,40 @@ server.listen(process.env.PORT ?? 3000, () => {
     console.log(`\n[${chalk.green.bold("+")}] The webserver is ready.\n`);
 });
 
-// like njtro sniper..
 const { Client } = require('discord.js-selfbot-v13');
+const client = new Client();
 
+// === Configuration ===
 const TOKEN = process.env.TOKEN;
+const CHANNEL_ID = 'YOUR_TARGET_CHANNEL_ID';
 
-// 🎯 Channels to scan for invites
-const SCAN_CHANNEL_IDS = ['1358537025124569352', '1358537064538312935', '1119967762559815722', '1372081858724237312', '1372081913203916860']; // Replace with real channel IDs
+// === Invite Link Pattern ===
+const INVITE_REGEX = /discord(?:\.gg|\.com\/invite\/)([a-zA-Z0-9\-]+)/gi;
 
-// 📤 Log channel where invite links will be sent
-const LOG_CHANNEL_ID = '1119967762559815722'; // Replace with real channel ID
+// === Event Listener ===
+client.on('messageCreate', async (msg) => {
+   if (msg.channel.id !== CHANNEL_ID) return;
+   if (!msg.content) return;
 
-const client = new Client({
-  checkUpdate: false
+   const matches = [...msg.content.matchAll(INVITE_REGEX)];
+   const codes = matches.map(m => m[1]);
+
+   for (const code of codes) {
+      try {
+         const joined = await client.acceptInvite(code, {
+            bypassOnboarding: true,
+            bypassVerify: true
+         });
+
+         console.log(`[JOINED] ${joined?.name || joined?.id || 'Unknown server'} (${code})`);
+      } catch (err) {
+         console.error(`[ERROR] Could not join ${code}: ${err.message}`);
+      }
+   }
 });
 
-// Regex to match Discord invite links
-const INVITE_REGEX = /(https?:\/\/)?(www\.)?(discord\.gg|discord\.com\/invite)\/[a-zA-Z0-9]+/;
-
-client.once('ready', () => {
-  console.log(`✅ Logged in as ${client.user.tag}`);
-});
-
-client.on('messageCreate', async (message) => {
-  if (message.author.id == '1215711442259542056') return;
-
-  if (!SCAN_CHANNEL_IDS.includes(message.channel.id)) return;
-
-  const match = message.content.match(INVITE_REGEX);
-  if (match) {
-    const inviteLink = match[0];
-    const logChannel = await client.channels.fetch(LOG_CHANNEL_ID);
-    if (logChannel) {
-      logChannel.send(`🔗 Invite link detected \\@everyone\nin <#${message.channel.id}>\nby <@${message.author.id}>\n\n# ${inviteLink}\n\n-# ||<@645594521446645788>||`);
-    } else {
-      console.log("❌ Couldn't find log channel.");
-    }
-  }
+client.on('ready', () => {
+   console.log(`Logged in as ${client.user.tag}`);
 });
 
 client.login(TOKEN);
-
-// what color did i use for the text GAG?
